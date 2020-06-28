@@ -98,14 +98,14 @@ export const removeDog = ({
   response.body = { msg: "No Content" };
 };
 
-/* ROUTER */
-const router = new Router();
 
-router
+const dogsRouter = new Router();
+
+dogsRouter
   .get("/dogs", getDogs)
   .get("/dogs/:name", getDog)
   .post("/dogs", addDog)
   .put("/dogs/:name", updateDog)
   .delete("/dogs/:name", removeDog);
 
-export default router;
+export default dogsRouter;

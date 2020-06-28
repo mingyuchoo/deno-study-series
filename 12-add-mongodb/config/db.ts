@@ -1,28 +1,19 @@
-
+// importing the deno_mongo package from url
 import { init, MongoClient } from "https://deno.land/x/mongo@v0.6.0/mod.ts";
 
-// @ts-ignore
-await init();
+// Intialize the plugin
+await init()
 
-class DB {
-  public client: MongoClient;
-  constructor(public dbName: string, public url: string) {
-    this.dbName = dbName;
-    this.url = url;
-    this.client = {} as MongoClient;
-  }
-  connect() {
-    const client = new MongoClient();
-    client.connectWithUri(this.url);
-    this.client = client;
-  }
-  get getDatabase() {
-    return this.client.database(this.dbName);
-  }
-}
-const dbName = Deno.env.get("DB_NAME") || "deno_demo";
-const dbHostUrl = Deno.env.get("DB_HOST_URL") || "mongodb://localhost:27017";
-const db = new DB(dbName, dbHostUrl);
-db.connect();
+// Create client
+const client = new MongoClient();
+// Connect to mongodb
+client.connectWithUri("mongodb://root:root@localhost:27017");
 
-export default db;
+// Specifying the database name
+const dbname :string = "Friend_list_deno";
+const db = client.database(dbname);
+
+// Declare the collections here. Here we are using only one collection (i.e friends).
+const Friend = db.collection("friends");
+
+export {db, Friend};

@@ -1,5 +1,7 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
-import router from "./controllers/dogs.ts";
+
+import dogsRouter from "./controllers/dogs.ts";
+import friendsRouter from "./controllers/friends.ts";
 
 const env = Deno.env.toObject();
 const PORT = env.PORT || 4000;
@@ -29,8 +31,14 @@ app.use(async (ctx, next) => {
   ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+// friends
+app.use(friendsRouter.routes());
+app.use(friendsRouter.allowedMethods());
 
+// dogs
+app.use(dogsRouter.routes());
+app.use(dogsRouter.allowedMethods());
+
+// Listen
 console.log(`Listening on port ${PORT}...`);
 await app.listen(`${HOST}:${PORT}`);
