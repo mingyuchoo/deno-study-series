@@ -4,21 +4,14 @@ const env = Deno.env.toObject();
 const PORT = env.PORT || 4000;
 const HOST = env.HOST || "127.0.0.1";
 
+const data = JSON.parse(Deno.readTextFileSync("./dogs.json"));
+
 interface Dog {
   name: string;
   age: number;
 }
 
-let dogs: Array<Dog> = [
-  {
-    name: "Roger",
-    age: 8,
-  },
-  {
-    name: "Syd",
-    age: 7,
-  },
-];
+let dogs: Array<Dog> = data;
 
 export const getDogs = ({ response }: { response: any }) => {
   response.body = dogs;
@@ -39,7 +32,7 @@ export const getDog = ({
     response.body = dog[0];
     return;
   }
-  response.status = 400;
+  response.status = 404;
   response.body = { msg: `Cannot find dog ${params.name}` };
 };
 
@@ -54,8 +47,8 @@ export const addDog = async ({
   const dog: Dog = body.value;
   dogs.push(dog);
 
-  response.body = { msg: "OK" };
-  response.status = 200;
+  response.status = 201;
+  response.body = { msg: "Created" };
 };
 
 export const updateDog = async ({
@@ -79,8 +72,8 @@ export const updateDog = async ({
     response.body = { msg: "OK" };
     return;
   }
-  response.status = 400;
-  response.body = { msg: `Cannot find dog ${params.name}` };
+  response.status = 204;
+  response.body = { msg: `No dog ${params.name}` };
 };
 
 export const removeDog = ({
@@ -96,12 +89,12 @@ export const removeDog = ({
   dogs = dogs.filter((dog) => dog.name !== params.name);
 
   if (dogs.length === lengthBefore) {
-    response.status = 400;
+    response.status = 404;
     response.body = { msg: `Cannot find dog ${params.name}` };
     return;
   }
-  response.body = { msg: "OK" };
-  response.status = 200;
+  response.status = 204;
+  response.body = { msg: "No Content" };
 };
 
 const router = new Router();

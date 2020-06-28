@@ -3,4 +3,4 @@ deno fmt *.ts
 deno run \
   --allow-env \
   --allow-net \
-  app.ts
+   app.ts
