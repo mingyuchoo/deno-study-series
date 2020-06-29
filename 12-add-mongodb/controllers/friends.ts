@@ -1,5 +1,5 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import { Friend } from '../config/db.ts';
+import {Friend} from '../config/db.ts';
 
 // This is the function that adds a friend to the database.
 export const addFriend: any = async(context: any) => {
@@ -50,6 +50,7 @@ export const getFriend: any = async(context: any)=> {
     console.log(e);
   }
 }
+
 
 // This is the function that updates the data of a friend in the database.
 export const updateFriend:any = async(context: any) => {
@@ -107,13 +108,12 @@ export const deleteFriend: any = async(context: any) => {
   }
 }
 
-/* ROUTER */
 const friendsRouter = new Router();
 
 friendsRouter
-  .get("/employees/:id", getFriend)
-  .post("/employees", addFriend)
-  .put("/employees/:id", updateFriend)
-  .delete("/employees/:id", deleteFriend);
+  .get("/friends/:id", getFriend)
+  .post("/friends", addFriend)
+  .put("/friends/:id", updateFriend)
+  .delete("/friends/:id", deleteFriend);
 
 export default friendsRouter;
