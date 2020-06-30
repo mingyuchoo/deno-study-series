@@ -10,12 +10,12 @@ interface Dog {
 let dogs: Array<Dog> = data;
 
 /* LIST */
-export const getDogs = ({ response }: { response: any }) => {
+export const selectAllDogs = ({ response }: { response: any }) => {
   response.body = dogs;
 };
 
 /* READ */
-export const getDog = ({
+export const selectOneDog = ({
   params,
   response,
 }: {
@@ -35,7 +35,7 @@ export const getDog = ({
 };
 
 /* CREATE */
-export const addDog = async ({
+export const insertDog = async ({
   request,
   response,
 }: {
@@ -77,7 +77,7 @@ export const updateDog = async ({
 };
 
 /* DELETE */
-export const removeDog = ({
+export const deleteDog = ({
   params,
   response,
 }: {
@@ -98,14 +98,13 @@ export const removeDog = ({
   response.body = { msg: "No Content" };
 };
 
-
 const dogsRouter = new Router();
 
 dogsRouter
-  .get("/dogs", getDogs)
-  .get("/dogs/:name", getDog)
-  .post("/dogs", addDog)
+  .get("/dogs", selectAllDogs)
+  .get("/dogs/:name", selectOneDog)
+  .post("/dogs", insertDog)
   .put("/dogs/:name", updateDog)
-  .delete("/dogs/:name", removeDog);
+  .delete("/dogs/:name", deleteDog);
 
 export default dogsRouter;
