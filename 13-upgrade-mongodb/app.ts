@@ -1,5 +1,12 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 
+import {
+  green,
+  cyan,
+  bold,
+  yellow,
+} from "https://deno.land/std@0.59.0/fmt/colors.ts";
+
 import dogsRouter from "./controllers/dogs.ts";
 import friendsRouter from "./controllers/friends.ts";
 
@@ -9,24 +16,27 @@ const HOST = env.HOST || "127.0.0.1";
 
 const app = new Application();
 
-app.addEventListener("listen", ({ hostname, port, secure }) => {
+// Logger
+app.use(async (ctx, next) => {
+  /* Do some checking of the request */
+  await next();
+  /* Do some finalising of the response */
+  const rt = ctx.response.headers.get("X-Response-Time");
   console.log(
-    `Listening on: ${secure ? "https://" : "http://"}${hostname ??
-      "localhost"}:${port}`,
+    `${green(ctx.request.method)} ${cyan(ctx.request.url.pathname)} - ${
+      bold(
+        String(rt),
+      )
+    }`,
   );
 });
 
-// Logger
-app.use(async (ctx, next) => {
-  await next();
-  const rt = ctx.response.headers.get("X-Response-Time");
-  console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
-
-// Timing
+// Response Time
 app.use(async (ctx, next) => {
   const start = Date.now();
+  /* Do some checking of the request */
   await next();
+  /* Do some finalising of the response */
   const ms = Date.now() - start;
   ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
@@ -40,5 +50,12 @@ app.use(dogsRouter.routes());
 app.use(dogsRouter.allowedMethods());
 
 // Listen
-console.log(`Listening on port ${PORT}...`);
+app.addEventListener("listen", ({ hostname, port }) => {
+  console.log(
+    bold("Start listening on ") + yellow(`${hostname}:${port}`),
+  );
+});
+
+
 await app.listen(`${HOST}:${PORT}`);
+console.log(bold("Finished."));

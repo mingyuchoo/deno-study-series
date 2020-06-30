@@ -114,10 +114,10 @@ export const deleteFriend: any = async (context: any) => {
 
     // deleting the friend with the given id from the db
     const result = await Friend.deleteOne({ _id: { "$oid": id } });
-    /*
-  * result = 0 : data not found
-  * result = 1 : data found and deleted
-  */
+    /**
+     * result = 0 : data not found
+     * result = 1 : data found and deleted
+     */
     // sending the response
     context.response.body = { result };
     context.response.status = 200;

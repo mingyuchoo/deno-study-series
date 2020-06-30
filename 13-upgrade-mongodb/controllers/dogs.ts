@@ -10,12 +10,12 @@ interface Dog {
 let dogs: Array<Dog> = data;
 
 /* LIST */
-export const selectAllDogs = ({ response }: { response: any }) => {
+export const selectAllDogs: any = ({ response }: { response: any }) => {
   response.body = dogs;
 };
 
 /* READ */
-export const selectOneDog = ({
+export const selectOneDog: any = ({
   params,
   response,
 }: {
@@ -30,12 +30,12 @@ export const selectOneDog = ({
     response.body = dog[0];
     return;
   }
-  response.status = 404;
+  response.status = 204;
   response.body = { msg: `Cannot find dog ${params.name}` };
 };
 
 /* CREATE */
-export const insertDog = async ({
+export const insertDog: any = async ({
   request,
   response,
 }: {
@@ -51,7 +51,7 @@ export const insertDog = async ({
 };
 
 /* UPDATE */
-export const updateDog = async ({
+export const updateDog: any = async ({
   params,
   request,
   response,
@@ -77,7 +77,7 @@ export const updateDog = async ({
 };
 
 /* DELETE */
-export const deleteDog = ({
+export const deleteDog: any = ({
   params,
   response,
 }: {
