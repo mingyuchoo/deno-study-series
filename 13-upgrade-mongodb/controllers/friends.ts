@@ -1,5 +1,5 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import db from "../config/db.ts";
+import db from "../helpers/db.ts";
 
 // Declare the collections here. Here we are using only one collection (i.e friends).
 const Friend = db.collection("friends");

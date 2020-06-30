@@ -50,12 +50,13 @@ app.use(dogsRouter.routes());
 app.use(dogsRouter.allowedMethods());
 
 // Listen
-app.addEventListener("listen", ({ hostname, port }) => {
+app.addEventListener("listen", ({ secure, hostname, port }) => {
+  const protocol = secure ? "https://" : "http://";
+  const url = `${protocol}${hostname ?? "localhost"}:${port}`;
   console.log(
-    bold("Start listening on ") + yellow(`${hostname}:${port}`),
+    `${yellow("Listening on:")} ${green(url)}`,
   );
 });
-
 
 await app.listen(`${HOST}:${PORT}`);
 console.log(bold("Finished."));
