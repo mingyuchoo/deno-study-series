@@ -1,8 +1,33 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import {Friend} from '../config/db.ts';
+import db from '../config/db.ts';
+
+// Declare the collections here. Here we are using only one collection (i.e friends).
+const Friend = db.collection("friends");
+
+
+// This is the function that gets the data of a friend from the database.
+export const selectAllFriend: any = async(context: any)=> {
+  try{
+    // searching the db for a friend with the given id
+    const data :any = await Friend.find({});
+    if(data){       // Response if friend is found
+      context.response.body = data;
+      context.response.status = 200;
+    } else {        // Response if no friend exits with the given id
+      context.response.body = "not found";
+      context.response.status = 204;
+    }
+  }
+  // if some error occured while searching the db
+  catch(e) {
+    context.response.body = null;
+    context.response.status = 500
+    console.log(e);
+  }
+}
 
 // This is the function that adds a friend to the database.
-export const addFriend: any = async(context: any) => {
+export const insertFriend: any = async(context: any) => {
   try{
     // acessing data from the request body
     let body: any = await context.request.body();
@@ -28,7 +53,7 @@ export const addFriend: any = async(context: any) => {
 }
 
 // This is the function that gets the data of a friend from the database.
-export const getFriend: any = async(context: any)=> {
+export const selectOneFriend: any = async(context: any)=> {
   try{
     // accessing the id of friend from the request params
     let id: string = context.params.id;
@@ -111,8 +136,9 @@ export const deleteFriend: any = async(context: any) => {
 const friendsRouter = new Router();
 
 friendsRouter
-  .get("/friends/:id", getFriend)
-  .post("/friends", addFriend)
+  .get("/friends", selectAllFriend)
+  .post("/friends", insertFriend)
+  .get("/friends/:id", selectOneFriend)
   .put("/friends/:id", updateFriend)
   .delete("/friends/:id", deleteFriend);
 
