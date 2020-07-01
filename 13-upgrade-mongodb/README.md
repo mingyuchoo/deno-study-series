@@ -7,6 +7,7 @@
 - <https://www.freecodecamp.org/news/the-deno-handbook/#will-it-replace-node-js>
 - <https://websiteforstudents.com/how-to-install-mongodb-on-ubuntu-20-04-18-04/>
 - <https://docs.mongodb.com/manual/reference/connection-string/>
+- <https://dev.to/r0b/create-a-simple-rest-api-with-deno-1cbc>
 
 ## Initial Setting
 
