@@ -97,10 +97,10 @@ export const deleteOnePerson: any = async (context: any) => {
 
 const peopleRouter = new Router();
 peopleRouter
-  .get("", selectAllPeople)
-  .post("", insertOnePerson)
-  .get("", selectOnePerson)
-  .put("", updateOnePerson)
-  .delete("", deleteOnePerson);
+  .get("/people", selectAllPeople)
+  .post("/people", insertOnePerson)
+  .get("/people/:id", selectOnePerson)
+  .put("/people/:id", updateOnePerson)
+  .delete("/people/:id", deleteOnePerson);
 
 export default peopleRouter;

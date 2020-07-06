@@ -1,6 +1,5 @@
 #!/bin/bash
-deno fmt *.ts
-deno fmt ./**/*.ts
+deno fmt *.ts ./**/*.ts
 deno run \
   --allow-env \
   --allow-net \
