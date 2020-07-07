@@ -3,8 +3,13 @@ import db from "../helpers/db.ts";
 
 export const selectAllPeople: any = async (context: any) => {
   try {
-    const rows = await db.query("SELECT name FROM people;");
-    context.response.body = rows;
+    //const rows = await db.query("SELECT name FROM people;");
+    //context.response.body = rows;
+    let data = [];
+    for (const [id, name] of db.query("SELECT id, name FROM people;")) {
+      data.push({ id: id, name: name });
+    }
+    context.response.body = { status: "OK", data: data };
     context.response.status = 200;
   } catch (error) {
     context.response.body = null;
@@ -20,13 +25,23 @@ export const selectOnePerson: any = async (context: any) => {
     // accessing the id of friend from the request params
     let id: string = context.params.id;
 
-    const [name] = await db.query(
-      "SELECT name FROM people WHERE id = :id",
-      { id },
-    );
+    let data: any;
 
-    context.response.body = name;
-    context.response.status = 200;
+    for (
+      const [_id, _name] of db.query(
+        "SELECT id, name FROM people WHERE Id = :id;",
+        { id },
+      )
+    ) {
+      data = { id: _id, name: _name };
+    }
+    if (data) {
+      context.response.body = data;
+      context.response.status = 200;
+    } else {
+      context.response.body = null;
+      context.response.status = 404;
+    }
   } catch (error) {
     context.response.body = null;
     context.response.status = 500;
