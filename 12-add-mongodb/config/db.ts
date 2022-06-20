@@ -1,5 +1,5 @@
 // importing the deno_mongo package from url
-import { MongoClient } from "https://deno.land/x/mongo@v0.8.0/mod.ts";
+import { MongoClient } from "https://deno.land/x/mongo/mod.ts";
 
 // Create client
 const client = new MongoClient();

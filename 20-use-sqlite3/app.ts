@@ -1,10 +1,5 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
-import {
-  green,
-  cyan,
-  bold,
-  yellow,
-} from "https://deno.land/std@0.59.0/fmt/colors.ts";
+import { bold, cyan, green, yellow } from "https://deno.land/std/fmt/colors.ts";
 
 import peopleRouter from "./controllers/people.ts";
 
