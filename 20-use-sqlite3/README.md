@@ -90,14 +90,13 @@ security:
 sudo service mongod restart
 ```
 
-login as *admin* user
+login as _admin_ user
 
 ```bash
 mongo -u admin -p <new_password_here> --authenticationDatabase admin
 ```
 
 ```bash
-
 ```
 
 ## Connect MongoDB using deno
@@ -120,7 +119,9 @@ import { MongoClient } from "https://deno.land/x/mongo@v0.8.0/mod.ts";
 // Create client
 const client = new MongoClient();
 // Connect to mongodb
-client.connectWithUri("mongodb://test:<new_password_here>@localhost:27017/?authSource=test_db");
+client.connectWithUri(
+  "mongodb://test:<new_password_here>@localhost:27017/?authSource=test_db",
+);
 
 // Specifying the database name
 const dbname: string = "test_db";
@@ -129,5 +130,5 @@ const db = client.database(dbname);
 // Declare the collections here. Here we are using only one collection (i.e friends).
 const Friend = db.collection("friends");
 
-export {db, Friend};
+export { db, Friend };
 ```
