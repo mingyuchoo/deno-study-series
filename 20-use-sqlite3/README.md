@@ -12,7 +12,7 @@
 
 ### Step 1: Add MongoDB Package repository to Ubuntu
 
-```sh
+```bash
 wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
@@ -20,7 +20,7 @@ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongod
 
 ### Step 2: Install MongoDB on Ubuntu 18.04
 
-```sh
+```bash
 sudo apt update
 
 sudo apt install mongodb-org
@@ -28,7 +28,7 @@ sudo apt install mongodb-org
 
 ### Step 3: Manage MongoDB
 
-```sh
+```bash
 sudo systemctl stop mongod.service
 
 sudo systemctl start mongod.service
@@ -38,7 +38,7 @@ sudo systemctl enable mongod.service
 
 ### Step 4: Adding Admin User
 
-```sh
+```bash
 $ mongo
 
 > use admin
@@ -47,13 +47,13 @@ $ mongo
 
 ### Step 5: Edit MongoDB config file
 
-```sh
+```bash
 sudo vi /lib/systemd/system/mongod.service
 ```
 
 add **--auth** flag to ExecStart
 
-```sh
+```bash
 [Unit]
 Description=High-performance, schema-free document-oriented database
 After=network.target
@@ -67,7 +67,7 @@ PIDFile=/var/run/mongodb/mongod.pid
 # file size
 ```
 
-```sh
+```bash
 sudo systemctl daemon-reload
 
 sudo service mongod restart
@@ -75,35 +75,35 @@ sudo service mongod restart
 
 ### Step 6: Edit Default MongoDB configuration file
 
-```sh
+```bash
 sudo vi /etc/mongod.conf
 ```
 
 change to **enabled** of authorization
 
-```sh
+```bash
 security:
   authorization: enabled
 ```
 
-```sh
+```bash
 sudo service mongod restart
 ```
 
 login as _admin_ user
 
-```sh
+```bash
 mongo -u admin -p <new_password_here> --authenticationDatabase admin
 ```
 
-```sh
+```bash
 ```
 
 ## Connect MongoDB using deno
 
 ### Step1: Add application user
 
-```sh
+```bash
 $ mongo
 
 > use admin

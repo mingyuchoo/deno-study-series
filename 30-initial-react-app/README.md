@@ -2,7 +2,7 @@
 
 ## How to create project, and run it
 
-```sh
+```bash
 deno install -A --unstable -n deno-create-react-app https://deno.land/x/create_react_app/mod.ts
 deno-create-react-app init my-app
 cd my-app
